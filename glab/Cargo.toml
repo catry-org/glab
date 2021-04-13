@@ -1,6 +1,6 @@
 [package]
 name = "glab"
-version = "0.1.0"
+version = "0.0.1"
 authors = ["Akiacode <catry.me@gmail.com>"]
 edition = "2018"
 description = "GitLab’s command-line tool"
