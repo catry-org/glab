@@ -7,14 +7,14 @@ pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
             SubCommand::with_name("config")
                 .about("config command")
                 .arg(Arg::with_name("config_name").index(1)),
-            // login Command
-            SubCommand::with_name("login")
-                .about("login command"),
             // update Command
             SubCommand::with_name("update")
                 .about("update command"),
-            // clone Command
-            SubCommand::with_name("clone")
+            // auth Command
+            SubCommand::with_name("auth")
+                .about("auth command"),
+            // repo Command
+            SubCommand::with_name("repo")
                 .about("clone command"),
             // issue Command
             SubCommand::with_name("issue")
@@ -22,6 +22,9 @@ pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
             // Pull Request (PR) Command
             SubCommand::with_name("pr")
                 .about("Pull Request command"),
+            // wiki Command
+            SubCommand::with_name("wiki")
+                .about("wiki command"),
         ]
 }
 
