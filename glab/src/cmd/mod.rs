@@ -1,7 +1,6 @@
-use clap::{App, ArgMatches, SubCommand};
-use clap::Arg;
+use clap::{App, Arg, ArgMatches, SubCommand};
 
-// Commands
+// Commands Init
 pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
     vec![
             // config Command
