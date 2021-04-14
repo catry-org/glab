@@ -1,4 +1,4 @@
-use clap::{App, Arg, ArgMatches, SubCommand};
+use clap::{App, ArgMatches, SubCommand};
 
 // Commands Init
 pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
@@ -6,22 +6,30 @@ pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
             // config Command
             SubCommand::with_name("config")
                 .about("config command")
-                .arg(Arg::with_name("config_name").index(1)),
+                .subcommand(SubCommand::with_name("list"))
+                .subcommand(SubCommand::with_name("get")),
             // update Command
             SubCommand::with_name("update")
                 .about("update command"),
             // auth Command
             SubCommand::with_name("auth")
-                .about("auth command"),
+                .about("auth command")
+                .subcommand(SubCommand::with_name("login"))
+                .subcommand(SubCommand::with_name("logout"))
+                .subcommand(SubCommand::with_name("check")),
             // repo Command
             SubCommand::with_name("repo")
-                .about("clone command"),
+                .about("clone command")
+                .subcommand(SubCommand::with_name("clone"))
+                .subcommand(SubCommand::with_name("search")),
             // issue Command
             SubCommand::with_name("issue")
-                .about("issue command"),
+                .about("issue command")
+                .subcommand(SubCommand::with_name("checkout")),
             // Pull Request (PR) Command
             SubCommand::with_name("pr")
-                .about("Pull Request command"),
+                .about("Pull Request command")
+                .subcommand(SubCommand::with_name("checkout")),
             // wiki Command
             SubCommand::with_name("wiki")
                 .about("wiki command"),
