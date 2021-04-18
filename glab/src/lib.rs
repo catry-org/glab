@@ -8,3 +8,14 @@ pub fn toml_string(id: &str) -> String {
 
     return string.trim_matches(|x| x == '\"').to_string();
 }
+
+pub const BANNER: &'static str = r#"
+            ##                ##
+            ##               ##     
+   #####   ##        #####   #####  
+ ##   ##   ##      ##   ##  ##   ## 
+##   ##   ##      ##    ##  ##   ## 
+ ######   ##      ##  ###  ##   ##  
+    ##    ######   ### ##  ######   
+#####                               
+"#;

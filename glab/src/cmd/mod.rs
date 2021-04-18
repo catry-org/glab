@@ -1,4 +1,6 @@
 use clap::{App, ArgMatches, SubCommand};
+use crate::BANNER;
+pub mod config;
 
 // Commands Init
 pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
@@ -38,8 +40,14 @@ pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
 
 /// Commands Handler
 pub fn cmd_matches(matches: ArgMatches<'_>) {
+    // Empty
+    if matches.args.is_empty() {
+        println!("{}", BANNER);
+        println!("ERROR: Try 'glab.exe --help'");
+    }
+
     if matches.is_present("config") {
-        println!("{}", i18n("en_US", "test"))
+        config::check_config_file();
     }
 }
 
