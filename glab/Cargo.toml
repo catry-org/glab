@@ -3,7 +3,7 @@ name = "glab"
 version = "0.0.1"
 authors = ["Akiacode <catry.me@gmail.com>"]
 edition = "2018"
-description = "GitLab’s command-line tool"
+description = "GitLab CLI"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
