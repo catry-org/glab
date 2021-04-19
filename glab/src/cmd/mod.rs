@@ -31,12 +31,6 @@ pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
 
 /// Commands Handler
 pub fn cmd_matches(matches: ArgMatches<'_>) {
-    // Empty
-    if matches.args.is_empty() {
-        println!("{}", BANNER);
-        println!("{}", localization::local("en_US", "emptyCommand"));
-    }
-
     // SubCommands
     if matches.is_present("config") {
         Config::execute(&matches);
@@ -50,6 +44,9 @@ pub fn cmd_matches(matches: ArgMatches<'_>) {
         PR::execute(&matches);
     } else if matches.is_present("wiki") {
         Wiki::execute(&matches);
+    } else {
+        println!("{}", BANNER);
+        println!("{}", localization::local("en_US", "emptyCommand"));
     }
 }
 
