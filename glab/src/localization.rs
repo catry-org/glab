@@ -1,4 +1,4 @@
-pub fn local(lang: &str, id: &str) -> String {
+pub fn get_text(lang: &str, id: &str) -> String {
     let ctx = json_gettext::static_json_gettext_build!(
         "ko_KR",
         "ko_KR", "i18n/ko_KR.json",
