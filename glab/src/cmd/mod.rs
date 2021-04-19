@@ -36,6 +36,21 @@ pub fn cmd_matches(matches: ArgMatches<'_>) {
         println!("{}", BANNER);
         println!("{}", localization::local("en_US", "emptyCommand"));
     }
+
+    // SubCommands
+    if matches.is_present("config") {
+        Config::execute(&matches);
+    } else if matches.is_present("update") {
+        Update::execute(&matches);
+    } else if matches.is_present("auth") {
+        Auth::execute(&matches);
+    } else if matches.is_present("repo") {
+        Repo::execute(&matches);
+    } else if matches.is_present("pr") {
+        PR::execute(&matches);
+    } else if matches.is_present("wiki") {
+        Wiki::execute(&matches);
+    }
 }
 
 trait Command {
