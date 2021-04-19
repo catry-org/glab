@@ -1,5 +1,6 @@
 pub mod cmd;
 pub mod input;
+pub mod localization;
 
 pub fn toml_string(id: &str) -> String {
     let file = include_str!("../Cargo.toml");

@@ -1,40 +1,31 @@
-use clap::{App, ArgMatches, SubCommand};
+use clap::{App, ArgMatches};
+use auth::Auth;
+use config::Config;
+use issue::Issue;
+use pr::PR;
+use repo::Repo;
+use update::Update;
+use wiki::Wiki;
 use crate::BANNER;
+use crate::localization;
 pub mod config;
+pub mod update;
+pub mod repo;
+pub mod wiki;
+pub mod issue;
+pub mod auth;
+pub mod pr;
 
 // Commands Init
 pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
     vec![
-            // config Command
-            SubCommand::with_name("config")
-                .about("config command")
-                .subcommand(SubCommand::with_name("list"))
-                .subcommand(SubCommand::with_name("get")),
-            // update Command
-            SubCommand::with_name("update")
-                .about("update command"),
-            // auth Command
-            SubCommand::with_name("auth")
-                .about("auth command")
-                .subcommand(SubCommand::with_name("login"))
-                .subcommand(SubCommand::with_name("logout"))
-                .subcommand(SubCommand::with_name("check")),
-            // repo Command
-            SubCommand::with_name("repo")
-                .about("clone command")
-                .subcommand(SubCommand::with_name("clone"))
-                .subcommand(SubCommand::with_name("search")),
-            // issue Command
-            SubCommand::with_name("issue")
-                .about("issue command")
-                .subcommand(SubCommand::with_name("checkout")),
-            // Pull Request (PR) Command
-            SubCommand::with_name("pr")
-                .about("Pull Request command")
-                .subcommand(SubCommand::with_name("checkout")),
-            // wiki Command
-            SubCommand::with_name("wiki")
-                .about("wiki command"),
+            Config::info(),
+            Update::info(),
+            Auth::info(),
+            Repo::info(),
+            Issue::info(),
+            PR::info(),
+            Wiki::info(),
         ]
 }
 
@@ -43,21 +34,11 @@ pub fn cmd_matches(matches: ArgMatches<'_>) {
     // Empty
     if matches.args.is_empty() {
         println!("{}", BANNER);
-        println!("ERROR: Try 'glab.exe --help'");
-    }
-
-    if matches.is_present("config") {
-        config::check_config_file();
+        println!("{}", localization::local("en_US", "emptyCommand"));
     }
 }
 
-// i18n handler
-fn i18n(lang: &str, id: &str) -> String {
-    let ctx = json_gettext::static_json_gettext_build!(
-        "ko_KR",
-        "ko_KR", "i18n/ko_KR.json",
-        "en_US", "i18n/en_US.json"
-    ).unwrap();
-
-    return json_gettext::get_text!(ctx, lang, id).unwrap().to_string();
+trait Command {
+    fn info<'a, 'b>() -> App<'a, 'b>;
+    fn execute(matches: &ArgMatches<'_>);
 }

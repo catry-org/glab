@@ -1,3 +1,3 @@
 {
-    "test" : "테스트"
+    "emptyCommand" : "에러: 'glab.exe --help'으로 시도하세요"
 }
