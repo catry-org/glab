@@ -7,7 +7,7 @@ use repo::Repo;
 use update::Update;
 use wiki::Wiki;
 use crate::BANNER;
-use crate::localization;
+use crate::utils::{localization, colors};
 pub mod config;
 pub mod update;
 pub mod repo;
@@ -46,7 +46,7 @@ pub fn cmd_matches(matches: ArgMatches<'_>) {
         Wiki::execute(&matches);
     } else {
         println!("{}", BANNER);
-        println!("{}", localization::get_text("en_US", "emptyCommand"));
+        println!("{}", colors::Colors::from(&localization::get_text("en_US", "emptyCommand"), colors::Colors::Red));
     }
 }
 
