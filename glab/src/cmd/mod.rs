@@ -46,7 +46,7 @@ pub fn cmd_matches(matches: ArgMatches<'_>) {
         Wiki::execute(&matches);
     } else {
         println!("{}", BANNER);
-        println!("{}", colors::Colors::from(&localization::get_text("en_US", "emptyCommand"), colors::Colors::Red));
+        println!("{}", colors::Colors::from(&localization::get_text("en_US", "emptyCommand"), colors::Colors::BrightRed));
     }
 }
 
