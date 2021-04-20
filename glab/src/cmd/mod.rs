@@ -8,6 +8,8 @@ use update::Update;
 use wiki::Wiki;
 use crate::BANNER;
 use crate::utils::{localization, colors};
+
+use self::config::file;
 pub mod config;
 pub mod update;
 pub mod repo;
@@ -31,22 +33,25 @@ pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
 
 /// Commands Handler
 pub fn cmd_matches(matches: ArgMatches<'_>) {
+    let config_file = file::read_config_file(None);
+    let config: Config = serde_yaml::from_str(&config_file).unwrap();
+
     // SubCommands
     if matches.is_present("config") {
-        Config::execute(&matches);
+        Config::execute(&matches.subcommand_matches("config").unwrap());
     } else if matches.is_present("update") {
-        Update::execute(&matches);
+        Update::execute(&matches.subcommand_matches("update").unwrap());
     } else if matches.is_present("auth") {
-        Auth::execute(&matches);
+        Auth::execute(&matches.subcommand_matches("auth").unwrap());
     } else if matches.is_present("repo") {
-        Repo::execute(&matches);
+        Repo::execute(&matches.subcommand_matches("repo").unwrap());
     } else if matches.is_present("pr") {
-        PR::execute(&matches);
+        PR::execute(&matches.subcommand_matches("pr").unwrap());
     } else if matches.is_present("wiki") {
-        Wiki::execute(&matches);
+        Wiki::execute(&matches.subcommand_matches("wiki").unwrap());
     } else {
         println!("{}", BANNER);
-        println!("{}", colors::Colors::from(&localization::get_text("en_US", "emptyCommand"), colors::Colors::BrightRed));
+        println!("{}", colors::Colors::from(&localization::get_text(&config.lang, "emptyCommand"), colors::Colors::BrightRed));
     }
 }
 

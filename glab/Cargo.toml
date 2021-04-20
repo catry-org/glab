@@ -12,3 +12,5 @@ glab-api = { path = "../glab-api" }
 clap = "2.33.3"
 json-gettext = "3.2.10"
 toml = "0.5.8"
+serde_yaml = "0.8.17"
+serde = { version = "1.0.125", features=["derive"]}
