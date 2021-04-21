@@ -4,14 +4,12 @@ use config::Config;
 use issue::Issue;
 use pr::PR;
 use repo::Repo;
-use update::Update;
 use wiki::Wiki;
 use crate::BANNER;
 use crate::utils::{localization, colors};
 
 use self::config::file;
 pub mod config;
-pub mod update;
 pub mod repo;
 pub mod wiki;
 pub mod issue;
@@ -22,7 +20,6 @@ pub mod pr;
 pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
     vec![
             Config::info(),
-            Update::info(),
             Auth::info(),
             Repo::info(),
             Issue::info(),
@@ -33,14 +30,12 @@ pub fn commands<'a, 'b>() -> Vec<App<'a, 'b>> {
 
 /// Commands Handler
 pub fn cmd_matches(matches: ArgMatches<'_>) {
-    let config_file = file::read_config_file(None);
+    let config_file = file::read_config_file("config.yaml");
     let config: Config = serde_yaml::from_str(&config_file).unwrap();
 
     // SubCommands
     if matches.is_present("config") {
         Config::execute(&matches.subcommand_matches("config").unwrap());
-    } else if matches.is_present("update") {
-        Update::execute(&matches.subcommand_matches("update").unwrap());
     } else if matches.is_present("auth") {
         Auth::execute(&matches.subcommand_matches("auth").unwrap());
     } else if matches.is_present("repo") {

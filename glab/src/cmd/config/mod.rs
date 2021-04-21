@@ -16,13 +16,13 @@ impl Command for Config {
             .about("config command")
             .subcommand(SubCommand::with_name("list"))
             .subcommand(SubCommand::with_name("get").arg(
-                Arg::with_name("config_data").takes_value(true)
+                Arg::with_name("config_data").takes_value(true).required(true)
             )
         )
     }
 
     fn execute(matches: &clap::ArgMatches<'_>) {
-        let config = file::read_config_file(None);
+        let config = file::read_config_file("config.yaml");
         let yaml: Config = serde_yaml::from_str(&config).unwrap();
 
         if matches.is_present("list") {
@@ -45,7 +45,6 @@ impl Command for Config {
                         println!("{}", yaml.private_token.unwrap_or("None".to_owned()));
                     }
                 }
-
             }
         }
     }

@@ -1,13 +1,10 @@
 use std::{fs, io::{Read, Write}, path::Path};
 
-pub fn read_config_file(file_name: Option<&str>) -> String {
+pub fn read_config_file(file_name: &str) -> String {
 
     check_config_file(file_name);
-    let path = if file_name.is_some() {
-        link_config_file(file_name)
-    } else {
-        link_config_file(Some("config.yaml"))
-    };
+    let path = link_config_file(Some(file_name));
+
 
     let mut file = fs::OpenOptions::new()
         .read(true)
@@ -20,14 +17,9 @@ pub fn read_config_file(file_name: Option<&str>) -> String {
     buf
 }
 
-fn check_config_file(file_name: Option<&str>) {
-    let dir_path = link_config_file(None);
-
-    let file_path =  if file_name.is_some() {
-        link_config_file(file_name)
-    } else {
-        link_config_file(Some("config.yaml"))
-    };
+fn check_config_file(file_name: &str) {
+    let dir_path = link_config_file(Some(file_name));
+    let file_path =  link_config_file(Some(file_name));
 
     if !Path::new(&dir_path).exists() {
         fs::create_dir(&dir_path).unwrap();
