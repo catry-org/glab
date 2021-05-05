@@ -1,6 +1,6 @@
 use clap::SubCommand;
 
-use super::Command;
+use super::{config::Config, Command};
 
 pub struct PR;
 
@@ -11,7 +11,7 @@ impl Command for PR {
             .subcommand(SubCommand::with_name("checkout"))
     }
 
-    fn execute(_matches: &clap::ArgMatches<'_>) {
+    fn execute(_matches: &clap::ArgMatches<'_>, _: Config) {
         todo!()
     }
 }

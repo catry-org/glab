@@ -1,10 +1,12 @@
-use std::{fs, io::{Read, Write}, path::Path};
+use std::{
+    fs,
+    io::{Read, Write},
+    path::Path,
+};
 
 pub fn read_config_file(file_name: &str) -> String {
-
     check_config_file(file_name);
     let path = link_config_file(Some(file_name));
-
 
     let mut file = fs::OpenOptions::new()
         .read(true)
@@ -18,8 +20,8 @@ pub fn read_config_file(file_name: &str) -> String {
 }
 
 fn check_config_file(file_name: &str) {
-    let dir_path = link_config_file(Some(file_name));
-    let file_path =  link_config_file(Some(file_name));
+    let dir_path = link_config_file(None);
+    let file_path = link_config_file(Some(file_name));
 
     if !Path::new(&dir_path).exists() {
         fs::create_dir(&dir_path).unwrap();
@@ -28,11 +30,14 @@ fn check_config_file(file_name: &str) {
     if !Path::new(&file_path).exists() {
         let mut file = fs::File::create(&file_path).unwrap();
         let buf = r#"
-lang: en_US
+language: en_US
 hostname: https://gitlab.com
 "#;
         file.write_all(buf.as_bytes()).unwrap();
-        fs::metadata(&file_path).unwrap().permissions().set_readonly(true);
+        fs::metadata(&file_path)
+            .unwrap()
+            .permissions()
+            .set_readonly(true);
     }
 }
 

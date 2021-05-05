@@ -1,6 +1,6 @@
 use clap::SubCommand;
 
-use super::Command;
+use super::{config::Config, Command};
 
 pub struct Auth;
 
@@ -13,7 +13,7 @@ impl Command for Auth {
             .subcommand(SubCommand::with_name("check"))
     }
 
-    fn execute(_matches: &clap::ArgMatches<'_>) {
+    fn execute(_matches: &clap::ArgMatches<'_>, _: Config) {
         todo!()
     }
 }
